@@ -53,7 +53,9 @@ export function Navbar() {
           </Link>
           <nav className="flex flex-col gap-2 text-sm font-medium text-[#374151]">
             <Link href="/makes" onClick={() => setMobileOpen(false)}>All Makes</Link>
-            <Link href="/search" onClick={() => setMobileOpen(false)}>Search</Link>
+            <Link href="/buyers-guides" onClick={() => setMobileOpen(false)}>Buyer's Guides</Link>
+            <Link href="/mot-checks" onClick={() => setMobileOpen(false)}>MOT Pass Rates</Link>
+            <Link href="/fault-codes" onClick={() => setMobileOpen(false)}>OBD-II Codes</Link>
             <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
           </nav>
         </div>

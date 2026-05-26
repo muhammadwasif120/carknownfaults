@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, UploadCloud } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
 
 export default function SubmitPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -11,7 +12,29 @@ export default function SubmitPage() {
     e.preventDefault();
     setLoading(true);
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // Handle image upload if present
+    const imageFile = formData.get("image") as File;
+    if (imageFile && imageFile.size > 0) {
+      try {
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const { error: uploadError } = await supabase.storage.from("submissions").upload(fileName, imageFile);
+        
+        if (!uploadError) {
+          data.image_url = supabase.storage.from("submissions").getPublicUrl(fileName).data.publicUrl;
+        }
+      } catch (err) {
+        console.error("Image upload failed", err);
+      }
+    }
+    
     await fetch("/api/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -96,6 +119,14 @@ export default function SubmitPage() {
         <div>
           <label className="block text-sm font-medium text-[#111827] mb-1">OBD Codes (if known)</label>
           <input name="obd_codes" placeholder="e.g. P0401, P0403" className="w-full border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC0000]" />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#111827] mb-1">Upload Photo (optional)</label>
+          <div className="flex items-center gap-3">
+             <input type="file" name="image" accept="image/*" className="w-full border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC0000] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-[#CC0000] hover:file:bg-red-100" />
+          </div>
+          <p className="text-xs text-gray-500 mt-1">Provide a photo of the broken part or dashboard warning.</p>
         </div>
 
         <div>

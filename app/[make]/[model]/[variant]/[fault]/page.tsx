@@ -51,12 +51,15 @@ export default async function FaultArticlePage({ params }: Props) {
 
   const { data: fault } = await supabase
     .from("faults")
-    .select("*, variants(*, models(*, makes(*)))")
+    .select("*, variants(*, models(*, makes(*))), fault_tags(tags(name, slug))")
     .eq("slug", p.fault)
     .eq("published", true)
     .single();
 
   if (!fault) notFound();
+
+  // Extract primary tag for the blueprint diagram
+  const primaryTag = (fault as any).fault_tags?.[0]?.tags;
 
   const variant = (fault as any).variants as Variant & { models: Model & { makes: Make } };
   const model = variant.models;
@@ -115,6 +118,33 @@ export default async function FaultArticlePage({ params }: Props) {
       <div className="mb-8">
         <FaultSummaryBox fault={fault as Fault} />
       </div>
+
+      {/* Component Blueprint UI */}
+      {primaryTag && (
+        <div className="mb-8 bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col md:flex-row">
+          <div className="md:w-1/3 bg-gray-900 p-6 flex flex-col justify-center text-white">
+            <div className="flex items-center gap-2 text-gray-400 mb-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+              <span className="text-sm font-semibold uppercase tracking-wider">Component Diagram</span>
+            </div>
+            <h3 className="text-xl font-bold mb-2 text-white capitalize">{primaryTag.name.replace('-', ' ')}</h3>
+            <p className="text-sm text-gray-400">Typical layout and location for the {primaryTag.name.replace('-', ' ')} assembly.</p>
+          </div>
+          <div className="md:w-2/3 h-48 md:h-auto bg-gray-100 relative">
+             {/* eslint-disable-next-line @next/next/no-img-element */}
+             <img 
+               src={`https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=80`}
+               alt={`${primaryTag.name} diagram`}
+               className="w-full h-full object-cover mix-blend-multiply opacity-80"
+             />
+             <div className="absolute inset-0 border-4 border-dashed border-white/20 m-4 rounded-lg pointer-events-none"></div>
+             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-lg text-sm font-bold text-gray-900 flex items-center gap-2">
+               <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
+               Reference Illustration
+             </div>
+          </div>
+        </div>
+      )}
 
       <AdSlot slot="fault-article-1" format="rectangle" />
 

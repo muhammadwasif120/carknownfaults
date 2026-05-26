@@ -155,3 +155,20 @@ drop trigger if exists fault_count_trigger on faults;
 create trigger fault_count_trigger
   after insert or update on faults
   for each row execute function update_fault_counts();
+
+-- ─── Phase 4: MOT Intelligence ───────────────────────────────────────────────
+
+create table if not exists mot_stats (
+  id uuid primary key default gen_random_uuid(),
+  model_id uuid references models(id) on delete cascade unique,
+  pass_rate numeric(4,1) not null,
+  tested_count integer not null,
+  top_failure_1 text,
+  top_failure_2 text,
+  top_failure_3 text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+alter table mot_stats enable row level security;
+create policy "Public read mot_stats" on mot_stats for select using (true);

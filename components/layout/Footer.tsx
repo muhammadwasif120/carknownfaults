@@ -18,14 +18,16 @@ export function Footer() {
           <h4 className="text-white font-semibold mb-3 text-sm">Browse</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/makes" className="hover:text-white transition-colors">All Makes</Link></li>
-            <li><Link href="/search" className="hover:text-white transition-colors">Search Faults</Link></li>
-            <li><Link href="/guides" className="hover:text-white transition-colors">Buying Guides</Link></li>
+            <li><Link href="/buyers-guides" className="hover:text-white transition-colors">Buyer's Guides</Link></li>
+            <li><Link href="/mot-checks" className="hover:text-white transition-colors">MOT Pass Rates</Link></li>
+            <li><Link href="/fault-codes" className="hover:text-white transition-colors">OBD-II Codes</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="text-white font-semibold mb-3 text-sm">Info</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/about" className="hover:text-white transition-colors">About CKF</Link></li>
+            <li><Link href="/press" className="hover:text-white transition-colors">Press & Media</Link></li>
             <li><Link href="/submit" className="hover:text-white transition-colors">Submit a Fault</Link></li>
             <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
           </ul>
