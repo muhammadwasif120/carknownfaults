@@ -5,7 +5,7 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { FaultCard } from "@/components/fault/FaultCard";
 import { SeverityBadge } from "@/components/fault/SeverityBadge";
 import { AdSlot } from "@/components/ads/AdSlot";
-import { generateVariantMetadata } from "@/lib/utils/seo";
+import { generateVariantMetadata, generateVariantPageSchema } from "@/lib/utils/seo";
 import type { Make, Model, Variant, Fault } from "@/lib/types";
 import { CheckCircle } from "lucide-react";
 
@@ -75,8 +75,11 @@ export default async function VariantPage({ params }: Props) {
     "Request a pre-purchase inspection by an independent mechanic",
   ];
 
+  const variantSchema = generateVariantPageSchema(variant as Variant, model, make, sorted);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: variantSchema }} />
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },

@@ -5,14 +5,34 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { MakeGrid } from "@/components/makes/MakeGrid";
 import { FaultCard } from "@/components/fault/FaultCard";
 import { TagChip } from "@/components/ui/TagChip";
-import { generateWebsiteSchema } from "@/lib/utils/seo";
+import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/utils/seo";
 import type { Make, Fault, Tag } from "@/lib/types";
 import { Search, ShoppingCart, CheckCircle } from "lucide-react";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://carknownfaults.com";
 
 export const metadata: Metadata = {
   title: "Car Known Faults by Make & Model | CKF",
   description:
-    "Browse known faults for every car make, model, and variant. Forum-sourced, organised for used car buyers and DIY mechanics.",
+    "The UK's most comprehensive database of known car faults. Browse 970+ real-world problems by make, model, and variant — with symptoms, fix costs, and DIY guides.",
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    title: "Car Known Faults | Know Before You Buy",
+    description:
+      "970+ known faults across every car make and model. Symptoms, repair costs, and fix guides for used car buyers.",
+    url: SITE_URL,
+    siteName: "Car Known Faults",
+    type: "website",
+    images: [{ url: `${SITE_URL}/og-default.jpg`, width: 1200, height: 630, alt: "Car Known Faults" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@CKFaults",
+    title: "Car Known Faults | Know Before You Buy",
+    description: "970+ known faults across every car make and model.",
+    images: [`${SITE_URL}/og-default.jpg`],
+  },
+  robots: { index: true, follow: true },
 };
 
 export const revalidate = 86400;
@@ -37,6 +57,11 @@ export default async function HomePage() {
         id="website-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: generateWebsiteSchema() }}
+      />
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: generateOrganizationSchema() }}
       />
 
       {/* Hero */}

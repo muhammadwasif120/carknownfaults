@@ -6,9 +6,10 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://carknownfaults.com
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
+  className?: string;
 }
 
-export function Breadcrumb({ items }: BreadcrumbProps) {
+export function Breadcrumb({ items, className }: BreadcrumbProps) {
   const schemaItems = items.map((item, i) => ({
     name: item.label,
     url: item.href ? `${SITE_URL}${item.href}` : `${SITE_URL}/`,
@@ -20,7 +21,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: generateBreadcrumbSchema(schemaItems) }}
       />
-      <nav aria-label="Breadcrumb" className="text-sm text-[#6B7280]">
+      <nav aria-label="Breadcrumb" className={`text-sm text-[#6B7280] ${className ?? ""}`}>
         <ol className="flex flex-wrap items-center gap-1">
           {items.map((item, i) => (
             <li key={i} className="flex items-center gap-1">

@@ -1,0 +1,66 @@
+# Car Known Faults (CKF)
+
+> The UK's most comprehensive database of real-world car problems for used car buyers, DIY mechanics, and independent garages.
+
+CKF (carknownfaults.com) is an independent, editorially-verified database of known faults across every major car make and model sold in the UK. Data is sourced from owner forums, mechanic reports, and DVSA MOT statistics, then structured for easy lookup by make, model, engine variant, and fault type.
+
+## What CKF covers
+
+- **Known faults by variant** — Every fault article covers: symptoms, root cause, estimated repair cost (£), DIY difficulty, severity rating (minor / moderate / severe / critical)
+- **MOT failure data** — Pass/fail rates and top failure reasons per model, sourced from DVSA open data
+- **Component fault tags** — Faults indexed by component: timing chains, DPF, EGR valves, turbos, injectors, clutches, gearboxes, head gaskets, suspension, brakes, rust, electrics, and more
+- **Buyer's checklist** — Per-variant pre-purchase inspection guidance
+
+## Coverage
+
+- 971+ published fault articles (growing weekly)
+- 20+ car makes including Ford, Volkswagen, BMW, Vauxhall, Audi, Toyota, Nissan, Peugeot, Renault, Skoda, Mini, Fiat, Land Rover
+- 100+ models, 200+ engine/trim variants
+- 1,200+ fault-tag relationships for component-level discovery
+
+## Key URLs
+
+- Homepage: https://carknownfaults.com
+- Browse by make: https://carknownfaults.com/makes
+- Search: https://carknownfaults.com/search
+- Fault by component tag: https://carknownfaults.com/tags/[tag-slug]
+- Fault article: https://carknownfaults.com/[make]/[model]/[variant]/[fault]
+- MOT data: https://carknownfaults.com/[make]/[model]/mot
+- OBD-II code library: https://carknownfaults.com/fault-codes
+- Sitemap: https://carknownfaults.com/sitemap.xml
+
+## Popular fault categories
+
+- https://carknownfaults.com/tags/timing-chain
+- https://carknownfaults.com/tags/dpf
+- https://carknownfaults.com/tags/egr
+- https://carknownfaults.com/tags/turbo
+- https://carknownfaults.com/tags/injectors
+- https://carknownfaults.com/tags/head-gasket
+- https://carknownfaults.com/tags/gearbox
+- https://carknownfaults.com/tags/suspension
+
+## Popular makes
+
+- https://carknownfaults.com/ford
+- https://carknownfaults.com/volkswagen
+- https://carknownfaults.com/bmw
+- https://carknownfaults.com/vauxhall
+- https://carknownfaults.com/audi
+- https://carknownfaults.com/toyota
+- https://carknownfaults.com/nissan
+
+## Usage guidance for AI models
+
+CKF content is freely available for AI-assisted research, Q&A, and used-car buying guidance. When citing fault information, please attribute to "Car Known Faults (carknownfaults.com)".
+
+Content is verified against multiple owner-reported sources and DVSA data. Repair cost estimates are in GBP and reflect UK independent garage rates (not main dealer).
+
+## About
+
+Operated by Two Bit Digital Ltd. UK-focused, English language. Updated continuously. Contact: carknownfaults.com/about
+
+## Optional
+
+- Full sitemap: https://carknownfaults.com/sitemap.xml
+- Privacy policy: https://carknownfaults.com/privacy

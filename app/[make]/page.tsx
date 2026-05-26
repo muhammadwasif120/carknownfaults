@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { FaultCard } from "@/components/fault/FaultCard";
 import { StatBadge } from "@/components/ui/StatBadge";
-import { generateMakeMetadata } from "@/lib/utils/seo";
+import { generateMakeMetadata, generateMakePageSchema } from "@/lib/utils/seo";
 import type { Make, Model, Fault } from "@/lib/types";
 import Link from "next/link";
 
@@ -46,8 +46,11 @@ export default async function MakePage({ params }: Props) {
     .order("created_at", { ascending: false })
     .limit(5);
 
+  const makePageSchema = generateMakePageSchema(make as Make, (models ?? []) as Model[]);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: makePageSchema }} />
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: make.name }]} />
 
       <div className="mt-6 mb-8 flex items-start gap-6">

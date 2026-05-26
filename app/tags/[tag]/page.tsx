@@ -3,17 +3,19 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { FaultCard } from "@/components/fault/FaultCard";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
+import { generateTagMetadata } from "@/lib/utils/seo";
 
 interface Props { params: Promise<{ tag: string }> }
 
 export const revalidate = 86400;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { tag } = await params;
-  return {
-    title: `${tag.toUpperCase()} Faults | CKF`,
-    description: `All known car faults tagged with ${tag}. Browse symptoms, causes and fixes.`,
-  };
+  const { tag: tagSlug } = await params;
+  const { createBuildClient } = await import("@/lib/supabase/build");
+  const sb = createBuildClient();
+  const { data: tag } = await sb.from("tags").select("name, slug").eq("slug", tagSlug).single();
+  if (!tag) return { title: "Tag Not Found" };
+  return generateTagMetadata(tag);
 }
 
 export async function generateStaticParams() {

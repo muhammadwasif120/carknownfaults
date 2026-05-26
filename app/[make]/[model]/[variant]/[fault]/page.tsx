@@ -8,7 +8,7 @@ import { FaultSummaryBox } from "@/components/fault/FaultSummaryBox";
 import { CostTable } from "@/components/fault/CostTable";
 import { FaultCard } from "@/components/fault/FaultCard";
 import { AdSlot } from "@/components/ads/AdSlot";
-import { generateFaultMetadata, generateFaultHowToSchema } from "@/lib/utils/seo";
+import { generateFaultMetadata, generateFaultHowToSchema, generateFaultArticleSchema } from "@/lib/utils/seo";
 import type { Make, Model, Variant, Fault } from "@/lib/types";
 
 interface Props {
@@ -77,13 +77,12 @@ export default async function FaultArticlePage({ params }: Props) {
     .limit(3);
 
   const howToSchema = generateFaultHowToSchema(fault as Fault);
+  const articleSchema = generateFaultArticleSchema(fault as Fault, variant, model, make);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: howToSchema }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: howToSchema }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleSchema }} />
 
       <Breadcrumb
         items={[

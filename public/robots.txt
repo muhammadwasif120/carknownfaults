@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://carknownfaults.com
-
-# Sitemaps
-Sitemap: https://carknownfaults.com/sitemap.xml

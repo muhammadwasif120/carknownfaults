@@ -6,12 +6,32 @@ import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | CKF",
-    default: "Car Known Faults by Make & Model | CKF",
+    template: "%s | Car Known Faults",
+    default: "Car Known Faults | Know Before You Buy",
   },
   description:
-    "Browse known faults for every car make, model, and variant. Forum-sourced, organised for used car buyers and DIY mechanics.",
+    "The UK's most comprehensive database of known car faults. Browse real-world problems by make, model, and variant — with symptoms, fix costs, and DIY guides.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://carknownfaults.com"),
+  // Default OG — individual pages override these
+  openGraph: {
+    siteName: "Car Known Faults",
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@CKFaults",
+  },
+  // Instruct crawlers
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  // Branded colour for mobile chrome / PWA
+  themeColor: "#CC0000",
+  // App-level verification slots (fill in GSC/Bing codes)
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION ?? undefined,
+    other: {
+      "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

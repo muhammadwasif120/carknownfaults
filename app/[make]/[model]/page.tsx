@@ -257,5 +257,6 @@ export default async function ModelPage({ params }: Props) {
         </>
       )}
     </div>
+  </div>
   );
 }
