@@ -25,9 +25,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   // Branded colour for mobile chrome / PWA
   themeColor: "#CC0000",
-  // App-level verification slots (fill in GSC/Bing codes)
+  // App-level verification slots
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION ?? undefined,
+    yandex: "7034b9ad06664b1c",
     other: {
       "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
     },
